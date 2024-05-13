@@ -1,0 +1,22 @@
+{
+  "name": "soci-lab",
+  "version": "1.0.0",
+  "description": "SoCi-Lab is a JavaScript library designed to simplify and enhance web animation and interaction. With SoCi-Lab, developers can effortlessly create dynamic and engaging user experiences with minimal effort. Whether you need to animate elements based on scroll triggers, add staggered animations, or trigger animations on user interactions, SoCi-Lab provides an intuitive and flexible solution.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Saty19/Soci-Lab.git"
+  },
+  "keywords": [
+    "Soci-Lab"
+  ],
+  "author": "Satyadarsan Senapati",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Saty19/Soci-Lab/issues"
+  },
+  "homepage": "https://github.com/Saty19/Soci-Lab#readme"
+}
