@@ -1,6 +1,6 @@
 {
   "name": "soci-lab",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "SoCi-Lab is a JavaScript library designed to simplify and enhance web animation and interaction. With SoCi-Lab, developers can effortlessly create dynamic and engaging user experiences with minimal effort. Whether you need to animate elements based on scroll triggers, add staggered animations, or trigger animations on user interactions, SoCi-Lab provides an intuitive and flexible solution.",
   "main": "index.js",
   "scripts": {
