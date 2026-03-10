@@ -1,99 +1,234 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Socilab Interactive Animations Demo</title>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socilab Animations Docs</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            900: '#0c4a6e',
+                            950: '#082f49',
+                        }
+                    },
+                    backgroundImage: {
+                        'grid-white': 'linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Highlight.js for code formatting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+
     <style>
-      :root {
-        --bg: #0f172a;
-        --text: #f8fafc;
-        --accent: #38bdf8;
-      }
-      body {
-        margin: 0;
-        padding: 0;
-        background-color: var(--bg);
-        color: var(--text);
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        overflow-x: hidden;
-      }
-      
-      .container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 4rem 2rem;
-      }
+        body {
+            background-color: #020617;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+        
+        /* For Page Transitions */
+        #page-layer {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+            z-index: 50;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            will-change: transform, opacity;
+        }
 
-      .space-block {
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        text-align: center;
-      }
+        .code-block {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
 
-      h1 { font-size: 4rem; margin-bottom: 1rem; color: var(--accent); }
-      p { font-size: 1.5rem; color: #cbd5e1; line-height: 1.6; }
-
-      .box {
-        padding: 3rem;
-        background: rgba(255,255,255,0.05);
-        border-radius: 12px;
-        margin-top: 2rem;
-        cursor: pointer;
-        transition: background 0.3s;
-      }
-      .box:hover {
-        background: rgba(255,255,255,0.1);
-      }
-
-      .nav-links {
-        position: fixed;
-        top: 2rem;
-        right: 2rem;
-        display: flex;
-        gap: 1rem;
-        z-index: 100;
-      }
-      .nav-links a {
-        color: white;
-        text-decoration: none;
-        padding: 0.5rem 1rem;
-        background: rgba(255,255,255,0.1);
-        border-radius: 4px;
-        backdrop-filter: blur(4px);
-      }
+        .code-block pre { margin: 0; font-size: 0.9rem; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
     </style>
-  </head>
-  <body>
+</head>
+<body class="bg-[#020617] bg-[length:40px_40px] bg-grid-white antialiased selection:bg-brand-500 selection:text-white">
 
-    <div class="nav-links">
-      <a href="#" class="btn-focus">Focus Me</a>
-      <a href="#" class="btn-hover">Hover Me</a>
+    <!-- Outgoing/Incoming Page for Transition Demo -->
+    <div id="page-layer">
+        <h1 class="text-6xl font-black mb-4 tracking-tight">New Page</h1>
+        <p class="text-xl opacity-80 mb-8">This is the simulated next route.</p>
+        <button id="close-page" class="px-6 py-2 bg-white text-blue-600 rounded-full font-bold shadow-xl hover:scale-105 transition-transform">
+            Go Back
+        </button>
     </div>
 
-    <div class="container">
-      <div class="space-block" style="height: 80vh;">
-        <h1 class="hero-title">Interactive Animations</h1>
-        <p class="hero-desc">All 24 text effects now inherently support Scroll, Hover, Click, and Focus triggers instantly thanks to the new native Interaction API.</p>
-        <p>Scroll down to see scroll-reveal text animations.</p>
-      </div>
+    <!-- Main Container which acts as Outgoing Object -->
+    <main id="main-content" class="min-h-screen relative origin-center">
+        
+        <!-- Hero Section -->
+        <header class="relative pt-32 pb-20 sm:pt-40 sm:pb-24 flex flex-col items-center justify-center text-center px-4 overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-b from-brand-900/20 to-transparent pointer-events-none"></div>
+            
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-sm font-medium mb-6">
+                <span class="flex w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+                v1.0.0 Library Docs
+            </div>
 
-      <div class="space-block" style="border-top: 1px solid #333;">
-        <h2 class="scroll-reveal-text" style="font-size: 3rem;">I animate when scrolled into view!</h2>
-        <p>This is extremely useful for modern landing pages.</p>
-      </div>
+            <h1 class="text-5xl sm:text-7xl font-black tracking-tight mb-8 max-w-4xl text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">
+                <span class="hero-text block">Zero Dependencies.</span>
+                <span class="hero-text block text-brand-400">Infinite Motion.</span>
+            </h1>
+            
+            <p class="hero-subtext mt-4 text-xl sm:text-2xl text-slate-400 max-w-2xl font-light">
+                24+ Text Effects. 11 Page Transitions. <br/> Native Javascript execution hooked to Reactivity.
+            </p>
 
-      <div class="space-block" style="border-top: 1px solid #333;">
-        <div class="box click-box">
-          <h2 class="click-text">Click to Animate</h2>
-          <p>This text scrambles or bounces only exactly when you click this box.</p>
+            <div class="mt-10 flex gap-4">
+                <a href="#interaction-demo" class="hero-btn group relative inline-flex items-center justify-center px-8 py-3.5 text-base font-bold text-white transition-all duration-200 bg-brand-500 border border-transparent rounded-xl hover:bg-brand-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500">
+                    See Interactions
+                </a>
+            </div>
+        </header>
+
+        <div class="max-w-6xl mx-auto px-4 pb-32">
+            
+            <!-- Grid Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center" id="interaction-demo">
+                
+                <!-- Left: Text Demo -->
+                <div class="space-y-8">
+                    <div class="bg-white/5 border border-white/10 p-8 rounded-3xl backdrop-blur-sm">
+                        <div class="flex items-center justify-between mb-8 pb-4 border-b border-white/10">
+                            <h2 class="text-2xl font-bold text-brand-400">1. Hover Interactions</h2>
+                            <span class="text-xs font-mono uppercase tracking-wider text-slate-500">Event API</span>
+                        </div>
+                        
+                        <p class="text-slate-300 mb-8 leading-relaxed">
+                            socilab-animations bind deeply natively to user interaction. Hover over this button to natively trigger a complex staggered Jelly effect that automatically reverses perfectly upon exit without dropping frames!
+                        </p>
+
+                        <div class="flex justify-center p-8 bg-black/30 rounded-2xl border border-white/5 shadow-inner">
+                            <button id="hover-demo-btn" class="px-10 py-4 bg-white text-slate-900 rounded-xl font-black text-xl hover:shadow-[0_0_40px_rgba(56,189,248,0.4)] transition-shadow">
+                                Hover Me
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Code -->
+                <div class="code-block w-full">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        <span class="ml-2 text-xs font-mono text-slate-500">app.ts</span>
+                    </div>
+<pre><code class="language-typescript">import { Jelly } from 'socilab-animations';
+
+// Bind to Hover state with native Reverse
+new Jelly('#hover-demo-btn', { 
+    trigger: 'hover', 
+    reverseOnLeave: true,
+    stagger: 30, // ms between each char
+    duration: 600,
+    easing: 'ease-out'
+});
+// Automatically tracks WAAPI PlaybackRate!
+</code></pre>
+                </div>
+
+            </div>
+
+            <!-- Page Transition Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-24 items-center border-t border-white/10 pt-24">
+                
+                <!-- Left: Code -->
+                <div class="code-block w-full order-2 lg:order-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        <span class="ml-2 text-xs font-mono text-slate-500">router.ts</span>
+                    </div>
+<pre><code class="language-typescript">import { CameraFlyThrough } from 'socilab-animations';
+
+const mainPage = document.getElementById('main-content');
+const nextRoute = document.getElementById('page-layer');
+
+button.addEventListener('click', async () => {
+    nextRoute.style.display = 'flex';
+
+    // Cinematic 3D Camera Fly-through
+    // outgoing scales massively past the camera
+    // incoming slides in focus from depth
+    await new CameraFlyThrough(
+        mainPage, 
+        nextRoute, 
+        { duration: 1200 }
+    );
+});
+</code></pre>
+                </div>
+
+                <!-- Right: Demo -->
+                <div class="space-y-8 order-1 lg:order-2">
+                    <div class="bg-white/5 border border-white/10 p-8 rounded-3xl backdrop-blur-sm">
+                        <div class="flex items-center justify-between mb-8 pb-4 border-b border-white/10">
+                            <h2 class="text-2xl font-bold text-brand-400">2. Page Transitions</h2>
+                            <span class="text-xs font-mono uppercase tracking-wider text-slate-500">Core Engine</span>
+                        </div>
+                        
+                        <p class="text-slate-300 mb-8 leading-relaxed">
+                            The generic `TransitionEngine` guarantees perfectly synchronized outgoing and incoming layout layers. It natively computes promises internally only when both animations hit their offset 1.0!
+                        </p>
+
+                        <div class="flex flex-col gap-4">
+                            <button id="transition-demo-btn-camera" class="w-full px-6 py-4 bg-transparent border border-brand-500 text-brand-400 rounded-xl font-bold hover:bg-brand-500 hover:text-white transition-colors">
+                                Demo: Camera Fly Through
+                            </button>
+                            <button id="transition-demo-btn-slide" class="w-full px-6 py-4 bg-transparent border border-brand-500 text-brand-400 rounded-xl font-bold hover:bg-brand-500 hover:text-white transition-colors">
+                                Demo: Horizontal Parallax Slide
+                            </button>
+                            <button id="transition-demo-btn-zoom" class="w-full px-6 py-4 bg-transparent border border-brand-500 text-brand-400 rounded-xl font-bold hover:bg-brand-500 hover:text-white transition-colors">
+                                Demo: Perspective Zoom Reveal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- Scroll View Demo -->
+            <div class="mt-32 text-center relative py-20">
+                <div class="absolute inset-0 bg-brand-900/10 blur-3xl -z-10 rounded-[100%]"></div>
+                <h2 class="scroll-demo-text text-5xl font-black mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
+                    Scroll Interactivity Native API
+                </h2>
+                <p class="scroll-demo-desc text-xl text-slate-400 max-w-2xl mx-auto">
+                    The library utilizes highly optimized Intersection Observers to trigger and infinitely loop/reverse animations on scroll threshold.
+                </p>
+            </div>
+
         </div>
-      </div>
-    </div>
+    </main>
 
     <script type="module" src="/src/main.ts"></script>
-  </body>
+</body>
 </html>

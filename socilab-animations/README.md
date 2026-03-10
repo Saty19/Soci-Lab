@@ -32,6 +32,47 @@ async function swapPages(currentPageEl, nextPageEl) {
 }
 ```
 
+## Component Integration (React & Vue)
+
+Because `socilab-animations` accepts Raw DOM Elements in addition to string selectors, it integrates seamlessly into modern component frameworks without needing wrappers!
+
+### React / Next.js Example
+```tsx
+import { useEffect, useRef } from 'react';
+import { Fade, Jelly } from 'socilab-animations';
+
+export function AnimatedButton() {
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (buttonRef.current) {
+      new Jelly(buttonRef.current, { trigger: 'hover', reverseOnLeave: true });
+      new Fade(buttonRef.current, { trigger: 'scroll' });
+    }
+  }, []);
+
+  return <button ref={buttonRef}>Hover & Scroll Me</button>;
+}
+```
+
+### Vue 3 / Nuxt Example
+```vue
+<script setup>
+import { onMounted, ref } from 'vue';
+import { Fade } from 'socilab-animations';
+
+const textEl = ref(null);
+
+onMounted(() => {
+  new Fade(textEl.value, { trigger: 'scroll', duration: 1500 });
+});
+</script>
+
+<template>
+  <h1 ref="textEl">I animate on scroll!</h1>
+</template>
+```
+
 ## Running the Playground Demo
 
 There is a fully working `playground` application directly inside this repository.
