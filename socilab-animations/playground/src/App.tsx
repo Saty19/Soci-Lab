@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { EFFECT_CATEGORIES, EffectDef } from './config/effects';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { Play, Code, Monitor, RefreshCw, Layers, Terminal, Settings2, CheckSquare, Square } from 'lucide-react';
+import { Play, Code, Monitor, RefreshCw, Layers, Terminal, Settings2 } from 'lucide-react';
 
 export default function App() {
   const [activeEffect, setActiveEffect] = useState<EffectDef>(EFFECT_CATEGORIES[0].effects[0]);
@@ -134,7 +134,7 @@ new ${activeEffect.class.name}(target${optionsString});`;
                                     {activeEffect.isPageMode ? (
                                         <PageTransitionCanvas effect={activeEffect} props={activePropsObj} triggerKey={triggerKey} />
                                     ) : (
-                                        <TextAnimationCanvas effect={activeEffect} props={activePropsObj} triggerKey={triggerKey} textColor={textColor} />
+                                        <UniversalAnimationCanvas effect={activeEffect} props={activePropsObj} triggerKey={triggerKey} textColor={textColor} />
                                     )}
                                 </div>
                             </div>
@@ -264,7 +264,7 @@ new ${activeEffect.class.name}(target${optionsString});`;
 }
 
 // Sub-components for Rendering the exact animation 
-function TextAnimationCanvas({ effect, props, triggerKey, textColor }: any) {
+function UniversalAnimationCanvas({ effect, props, triggerKey, textColor }: any) {
     const containerRef = useRef<HTMLDivElement>(null);
     const propsRef = useRef(props);
     const colorRef = useRef(textColor);
@@ -274,33 +274,87 @@ function TextAnimationCanvas({ effect, props, triggerKey, textColor }: any) {
         colorRef.current = textColor;
     });
 
+    const getEffectType = () => {
+        const id = effect.id;
+        if (id.includes('card')) return 'card';
+        if (id.includes('map') || id.includes('pin') || id.includes('gps') || id.includes('globe') || id.includes('city') || id.includes('route')) return 'map';
+        if (id.includes('particle') || id.includes('energy') || id.includes('smoke') || id.includes('fire') || id.includes('dust') || id.includes('fractal')) return 'particle';
+        return 'text';
+    };
+
     useEffect(() => {
         if (!containerRef.current || !effect.class) return;
         
-        // CLEAN RESET: Ensure old elements are gone
         containerRef.current.innerHTML = '';
-        
-        // Create fresh element
-        const wrapper = document.createElement('div');
-        wrapper.className = "text-[5vw] md:text-[8vw] font-black tracking-tighter whitespace-nowrap drop-shadow-2xl leading-none transition-colors duration-300";
-        wrapper.style.color = colorRef.current;
-        wrapper.innerText = 'SOCI-LAB';
-        
-        containerRef.current.appendChild(wrapper);
+        const type = getEffectType();
+        let targetElement: HTMLElement;
 
-        // Animate on load/trigger key strictly
+        if (type === 'card') {
+            // GENERATE CARD MOCK
+            const cardGrid = document.createElement('div');
+            cardGrid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-4xl p-6";
+            
+            const cards = [1, 2, 3].map(i => {
+                const card = document.createElement('div');
+                card.className = "preview-card p-6 rounded-2xl border border-white/10 flex flex-col gap-4 backdrop-blur-xl bg-white/5";
+                card.innerHTML = `
+                    <div class="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center text-indigo-400">#${i}</div>
+                    <div class="flex flex-col gap-1">
+                        <div class="h-4 w-2/3 bg-white/20 rounded"></div>
+                        <div class="h-3 w-full bg-white/10 rounded"></div>
+                    </div>
+                `;
+                cardGrid.appendChild(card);
+                return card;
+            });
+            containerRef.current.appendChild(cardGrid);
+            targetElement = cardGrid; // For stack animations, or specific card for single ones
+            if (effect.id !== 'card-stack') targetElement = cards[0]; // Most card effects target single element
+        } else if (type === 'map') {
+            // GENERATE MAP MOCK (Minimalist SVG connection map)
+            const mapContainer = document.createElement('div');
+            mapContainer.className = "w-full max-w-3xl aspect-video relative rounded-3xl overflow-hidden border border-white/10 bg-[#080808]";
+            mapContainer.innerHTML = `
+                <svg viewBox="0 0 800 400" class="w-full h-full opacity-20">
+                    <path d="M100 200 Q 200 100 400 200 T 700 200" fill="none" stroke="white" stroke-width="1" />
+                    <circle cx="100" cy="200" r="4" fill="white" />
+                    <circle cx="400" cy="200" r="4" fill="white" />
+                    <circle cx="700" cy="200" r="4" fill="white" />
+                </svg>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="text-[10px] uppercase tracking-[0.4em] font-bold text-white/20">Geographical Viewport</div>
+                </div>
+            `;
+            containerRef.current.appendChild(mapContainer);
+            targetElement = mapContainer;
+        } else if (type === 'particle') {
+            // GENERATE PARTICLE CANVAS CONTAINER
+            const particleContainer = document.createElement('div');
+            particleContainer.className = "w-full h-full flex items-center justify-center relative";
+            particleContainer.innerHTML = `
+               <div class="particle-target text-[10vw] font-black text-white glow">ATOM</div>
+            `;
+            containerRef.current.appendChild(particleContainer);
+            targetElement = particleContainer.querySelector('.particle-target') as HTMLElement;
+        } else {
+            // DEFAULT TEXT MOCK
+            const wrapper = document.createElement('div');
+            wrapper.className = "text-[5vw] md:text-[8vw] font-black tracking-tighter whitespace-nowrap drop-shadow-2xl leading-none transition-colors duration-300";
+            wrapper.style.color = colorRef.current;
+            wrapper.innerText = 'SOCI-LAB';
+            containerRef.current.appendChild(wrapper);
+            targetElement = wrapper;
+        }
+
         const t = setTimeout(() => {
             try { 
-                // Some effects might need a parent with specific overflow or contain
-                new effect.class(wrapper, propsRef.current); 
+                new effect.class(targetElement, propsRef.current); 
             } catch(e) { 
                 console.error('Animation Engine Error:', e);
             }
         }, 50);
         
-        return () => {
-            clearTimeout(t);
-        };
+        return () => clearTimeout(t);
     }, [effect.id, triggerKey]); 
 
     return <div ref={containerRef} className="flex items-center justify-center p-8 w-full h-full relative" />;

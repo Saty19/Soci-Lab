@@ -31,23 +31,6 @@ function createParticles(parent: HTMLElement, count: number, className: string):
     return particles;
 }
 
-export class LiquidMotionGraphics {
-    constructor(public target: HTMLElement | string, public options: AnimationOptions = {}) {
-        const elements = getElements(target);
-        elements.forEach(el => {
-            el.style.filter = 'url(#goo)'; // Assumption: SVG Goo filter present
-            el.style.borderRadius = '30% 70% 70% 30% / 30% 30% 70% 70%';
-        });
-        const kf: Keyframe[] = [
-            { borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%', transform: 'scale(1) rotate(0deg)' },
-            { borderRadius: '70% 30% 30% 70% / 70% 70% 30% 30%', transform: 'scale(1.05) rotate(180deg)' },
-            { borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%', transform: 'scale(1) rotate(360deg)' }
-        ];
-        engine.animate(elements, kf, { duration: 8000, easing: 'linear', ...options }).forEach(a => {
-            if (!options.trigger) if(a.effect) (a.effect as any).updateTiming({ iterations: Infinity });
-        });
-    }
-}
 
 export class MorphShapeAnimation {
     constructor(public target: HTMLElement | string, public options: AnimationOptions = {}) {
@@ -64,23 +47,6 @@ export class MorphShapeAnimation {
     }
 }
 
-export class FluidSimulationAnimation {
-    constructor(public target: HTMLElement | string, public options: AnimationOptions = {}) {
-        const parent = typeof target === 'string' ? document.querySelector(target) as HTMLElement : target;
-        if (!parent) return;
-        parent.style.background = 'radial-gradient(circle at 50% 50%, rgba(0,255,255,0.8), rgba(0,0,255,0.8))';
-        parent.style.backgroundSize = '200% 200%';
-        const kf: Keyframe[] = [
-            { backgroundPosition: '0% 0%', filter: 'hue-rotate(0deg)' },
-            { backgroundPosition: '100% 100%', filter: 'hue-rotate(45deg)' },
-            { backgroundPosition: '0% 100%', filter: 'hue-rotate(90deg)' },
-            { backgroundPosition: '0% 0%', filter: 'hue-rotate(0deg)' }
-        ];
-        engine.animate([parent], kf, { duration: 12000, easing: 'ease', ...options }).forEach(a => {
-            if (!options.trigger) if(a.effect) (a.effect as any).updateTiming({ iterations: Infinity });
-        });
-    }
-}
 
 export class ParticleSystemAnimation {
     constructor(public target: HTMLElement | string, public options: AnimationOptions = {}) {

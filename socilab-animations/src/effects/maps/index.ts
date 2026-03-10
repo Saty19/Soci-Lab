@@ -234,19 +234,3 @@ export class GlobalDataFlowMap {
     }
 }
 
-export class DigitalEarthAnimation {
-    constructor(public target: HTMLElement | string, public options: AnimationOptions = {}) {
-        const elements = getElements(target);
-        elements.forEach(el => {
-            el.style.borderRadius = '50%';
-            el.style.boxShadow = '0 0 50px rgba(0, 255, 255, 0.4), inset 0 0 50px rgba(0, 255, 255, 0.6)';
-        });
-        const kf: Keyframe[] = [
-            { transform: 'rotate(0deg)', filter: 'hue-rotate(0deg)' },
-            { transform: 'rotate(360deg)', filter: 'hue-rotate(90deg)' }
-        ];
-        engine.animate(elements, kf, { duration: 10000, easing: 'linear', ...options }).forEach(a => {
-            if (!options.trigger) if(a.effect) (a.effect as any).updateTiming({ iterations: Infinity });
-        });
-    }
-}

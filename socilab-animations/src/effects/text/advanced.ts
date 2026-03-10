@@ -47,45 +47,6 @@ export class CinematicDepthText {
     }
 }
 
-export class MetallicTitle {
-    constructor(public target: HTMLElement | string, public options: AnimationOptions = {}) {
-        const parent = typeof target === 'string' ? document.querySelector(target) as HTMLElement : target;
-        if (!parent) return;
-        parent.style.backgroundImage = 'linear-gradient(to right, #b8c6db 0%, #f5f7fa 20%, #b8c6db 40%, #e0e0e0 60%, #8a9ba8 80%, #b8c6db 100%)';
-        parent.style.backgroundClip = 'text';
-        parent.style.webkitBackgroundClip = 'text';
-        parent.style.color = 'transparent';
-        parent.style.backgroundSize = '200% auto';
-        
-        const kf: Keyframe[] = [
-            { backgroundPosition: '200% center' },
-            { backgroundPosition: '0% center' }
-        ];
-        engine.animate([parent], kf, { duration: 3000, easing: 'linear', ...options }).forEach(a => {
-            if (!options.trigger) if(a.effect) (a.effect as any).updateTiming({ iterations: Infinity });
-        });
-    }
-}
-
-export class GoldReflectionText {
-    constructor(public target: HTMLElement | string, public options: AnimationOptions = {}) {
-        const parent = typeof target === 'string' ? document.querySelector(target) as HTMLElement : target;
-        if (!parent) return;
-        parent.style.backgroundImage = 'linear-gradient(to bottom, #cfc09f 22%, #634f2c 24%, #cfc09f 26%, #cfc09f 27%, #ffecb3 40%, #3a2c0f 78%)';
-        parent.style.backgroundClip = 'text';
-        parent.style.webkitBackgroundClip = 'text';
-        parent.style.color = 'transparent';
-        
-        const kf: Keyframe[] = [
-            { filter: 'brightness(0.5) contrast(1.2)' },
-            { filter: 'brightness(1.5) contrast(1.5)' },
-            { filter: 'brightness(0.5) contrast(1.2)' }
-        ];
-        engine.animate([parent], kf, { duration: 4000, easing: 'ease-in-out', ...options }).forEach(a => {
-            if (!options.trigger) if(a.effect) (a.effect as any).updateTiming({ iterations: Infinity });
-        });
-    }
-}
 
 export class GlassMorphText {
     constructor(public target: HTMLElement | string, public options: AnimationOptions = {}) {
@@ -103,44 +64,6 @@ export class GlassMorphText {
     }
 }
 
-export class ChromeLiquidText {
-    constructor(public target: HTMLElement | string, public options: AnimationOptions = {}) {
-        const parent = typeof target === 'string' ? document.querySelector(target) as HTMLElement : target;
-        if (!parent) return;
-        parent.style.color = 'transparent';
-        parent.style.webkitTextStroke = '1px rgba(255,255,255,0.8)';
-        parent.style.backgroundImage = 'radial-gradient(circle at 50% 50%, #fff, #888, #000)';
-        parent.style.backgroundClip = 'text';
-        parent.style.webkitBackgroundClip = 'text';
-        
-        const kf: Keyframe[] = [
-            { backgroundPosition: '0% 0%', filter: 'hue-rotate(0deg)' },
-            { backgroundPosition: '100% 100%', filter: 'hue-rotate(45deg)' }
-        ];
-        engine.animate([parent], kf, { duration: 5000, easing: 'linear', ...options }).forEach(a => {
-            if(a.effect) (a.effect as any).updateTiming({ direction: 'alternate' });
-            if (!options.trigger) if(a.effect) (a.effect as any).updateTiming({ iterations: Infinity });
-        });
-    }
-}
-
-export class CrystalText {
-    constructor(public target: HTMLElement | string, public options: AnimationOptions = {}) {
-        const parent = typeof target === 'string' ? document.querySelector(target) as HTMLElement : target;
-        if (!parent) return;
-        parent.style.color = 'rgba(200, 240, 255, 0.5)';
-        parent.style.textShadow = '0 0 10px rgba(200,240,255,0.8), 2px 2px 2px rgba(255,255,255,0.8), -2px -2px 2px rgba(0,0,0,0.5)';
-        
-        const kf: Keyframe[] = [
-            { transform: 'scale(0.95)', filter: 'brightness(1)' },
-            { transform: 'scale(1)', filter: 'brightness(1.5)' },
-            { transform: 'scale(0.95)', filter: 'brightness(1)' }
-        ];
-        engine.animate([parent], kf, { duration: 3000, easing: 'ease-in-out', ...options }).forEach(a => {
-            if (!options.trigger) if(a.effect) (a.effect as any).updateTiming({ iterations: Infinity });
-        });
-    }
-}
 
 export class Floating3DTypography {
     constructor(public target: HTMLElement | string, public options: AnimationOptions = {}) {
@@ -199,18 +122,6 @@ export class ParticleExplosionText {
 // AI Typography
 // ============================================
 
-export class AIMorphingTypography {
-    constructor(public target: HTMLElement | string, public options: AnimationOptions = {}) {
-        const parent = typeof target === 'string' ? document.querySelector(target) as HTMLElement : target;
-        if (!parent) return;
-        parent.style.filter = 'url(#goo)'; // Assumption: SVG filter exists, or fallback to blur/contrast
-        const kf: Keyframe[] = [
-            { letterSpacing: '-10px', filter: 'blur(10px) contrast(5)' },
-            { letterSpacing: 'normal', filter: 'blur(0) contrast(1)' }
-        ];
-        engine.animate([parent], kf, { duration: 2000, easing: 'ease-out', ...options });
-    }
-}
 
 export class NeuralNetworkText {
     constructor(public target: HTMLElement | string, public options: AnimationOptions = {}) {
@@ -228,25 +139,6 @@ export class NeuralNetworkText {
     }
 }
 
-export class AILiquidFlowText {
-    constructor(public target: HTMLElement | string, public options: AnimationOptions = {}) {
-        const parent = typeof target === 'string' ? document.querySelector(target) as HTMLElement : target;
-        if (!parent) return;
-        parent.style.backgroundImage = 'background-image: linear-gradient(45deg, #f3ec78, #af4261, #f3ec78)';
-        parent.style.backgroundClip = 'text';
-        parent.style.webkitBackgroundClip = 'text';
-        parent.style.color = 'transparent';
-        parent.style.backgroundSize = '300% 300%';
-        const kf: Keyframe[] = [
-            { backgroundPosition: '0% 50%' },
-            { backgroundPosition: '100% 50%' }
-        ];
-        engine.animate([parent], kf, { duration: 4000, easing: 'ease', ...options }).forEach(a => {
-            if(a.effect) (a.effect as any).updateTiming({ direction: 'alternate' });
-            if (!options.trigger) if(a.effect) (a.effect as any).updateTiming({ iterations: Infinity });
-        });
-    }
-}
 
 export class AIParticleTypography {
     constructor(public target: HTMLElement | string, public options: AnimationOptions = {}) {
@@ -277,21 +169,6 @@ export class AIGeneratedOrganicText {
     }
 }
 
-export class AINeuralPulseText {
-    constructor(public target: HTMLElement | string, public options: AnimationOptions = {}) {
-        const { elements } = applySplitter(target, options, ['words']);
-        elements.forEach((el, i) => {
-            const kf: Keyframe[] = [
-                { transform: 'scale(1)', opacity: 0.5 },
-                { transform: 'scale(1.1)', opacity: 1, filter: 'drop-shadow(0 0 10px #0f0)' },
-                { transform: 'scale(1)', opacity: 0.5 }
-            ];
-            engine.animate([el], kf, { duration: 1000, delay: i * 300, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', ...options }).forEach(a => {
-                if (!options.trigger) if(a.effect) (a.effect as any).updateTiming({ iterations: Infinity });
-            });
-        });
-    }
-}
 
 export class AIDataStreamText {
     constructor(public target: HTMLElement | string, public options: AnimationOptions = {}) {
@@ -368,20 +245,6 @@ export class StaggeredCharacterAnimation {
     }
 }
 
-export class ElasticTypographyMotion {
-    constructor(public target: HTMLElement | string, public options: AnimationOptions = {}) {
-        const { elements } = applySplitter(target, options, ['words']);
-        elements.forEach(el => { el.style.display = 'inline-block'; });
-        const kf: Keyframe[] = [
-            { transform: 'scaleX(0.5)' },
-            { transform: 'scaleX(1.2)' },
-            { transform: 'scaleX(0.9)' },
-            { transform: 'scaleX(1.05)' },
-            { transform: 'scaleX(1)' }
-        ];
-        engine.animate(elements, kf, { duration: 1000, stagger: 100, easing: 'linear', ...options });
-    }
-}
 
 export class MagneticTextAnimation {
     constructor(public target: HTMLElement | string, public options: AnimationOptions = {}) {
@@ -449,75 +312,7 @@ export class KineticGridTypography {
 // Hologram & Matrix
 // ============================================
 
-export class HologramText {
-    constructor(public target: HTMLElement | string, public options: AnimationOptions = {}) {
-        const parent = typeof target === 'string' ? document.querySelector(target) as HTMLElement : target;
-        if (!parent) return;
-        parent.style.color = '#0ff';
-        parent.style.textShadow = '0 0 5px #0ff, 0 0 10px #0ff';
-        const kf: Keyframe[] = [
-            { opacity: 0.8, transform: 'skew(0deg)', filter: 'brightness(1)' },
-            { opacity: 0.5, transform: 'skew(-5deg)', filter: 'brightness(2)' },
-            { opacity: 1, transform: 'skew(5deg)', filter: 'brightness(0.8)' },
-            { opacity: 0.8, transform: 'skew(0deg)', filter: 'brightness(1)' }
-        ];
-        engine.animate([parent], kf, { duration: 150, easing: 'steps(2, end)', ...options }).forEach(a => {
-            if (!options.trigger) if(a.effect) (a.effect as any).updateTiming({ iterations: Infinity });
-        });
-    }
-}
 
-export class CyberpunkNeonText {
-    constructor(public target: HTMLElement | string, public options: AnimationOptions = {}) {
-        const parent = typeof target === 'string' ? document.querySelector(target) as HTMLElement : target;
-        if (!parent) return;
-        parent.style.color = '#fff';
-        parent.style.textShadow = '0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 40px #ff00ff';
-        const kf: Keyframe[] = [
-            { opacity: 1 },
-            { opacity: 0.6 },
-            { opacity: 1 },
-            { opacity: 0.2 },
-            { opacity: 1 }
-        ];
-        engine.animate([parent], kf, { duration: 2000, easing: 'linear', ...options }).forEach(a => {
-            if (!options.trigger) if(a.effect) (a.effect as any).updateTiming({ iterations: Infinity });
-        });
-    }
-}
-
-export class HUDInterfaceTypography {
-    constructor(public target: HTMLElement | string, public options: AnimationOptions = {}) {
-        const { elements } = applySplitter(target, options, ['chars']);
-        elements.forEach(el => { 
-            el.style.display = 'inline-block';
-            el.style.fontFamily = 'monospace';
-            el.style.color = '#0f0';
-        });
-        const kf: Keyframe[] = [
-            { opacity: 0, transform: 'scale(0.8)' },
-            { opacity: 1, transform: 'scale(1)' }
-        ];
-        engine.animate(elements, kf, { duration: 200, stagger: 20, easing: 'ease', fill: 'both', ...options });
-    }
-}
-
-export class MatrixCodeText {
-    constructor(public target: HTMLElement | string, public options: AnimationOptions = {}) {
-        const { elements } = applySplitter(target, options, ['chars']);
-        elements.forEach(el => {
-            el.style.display = 'inline-block';
-            el.style.color = '#0F0';
-            el.style.textShadow = '0 0 5px #0F0';
-        });
-        const kf: Keyframe[] = [
-            { filter: 'brightness(0)', opacity: 0 },
-            { filter: 'brightness(2)', opacity: 1 },
-            { filter: 'brightness(1)', opacity: 1 }
-        ];
-        engine.animate(elements, kf, { duration: 300, stagger: 50, easing: 'linear', fill: 'both', ...options });
-    }
-}
 
 export class DigitalScanText {
     constructor(public target: HTMLElement | string, public options: AnimationOptions = {}) {

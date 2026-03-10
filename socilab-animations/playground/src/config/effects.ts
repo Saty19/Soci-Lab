@@ -4,13 +4,13 @@ import {
     HorizontalParallaxSlide, CardStackTransition, MaskParallaxReveal,
     StaggeredLayerSlide, EdgeWipeMotion, CinematicDepth, PerspectiveZoom,
     LayerDepthTransition, Stretch, Wavy, Bounce, Pop, Rotate, Scale, Slide,
-    Typewriter, Zoom, Blur, NeonGlow, DigitalGlitch, Shatter, AIMorph, Floating3D, Rotate3D,
+    Typewriter, Zoom, Blur, DigitalGlitch, Shatter, AIMorph, Floating3D, Rotate3D,
     
     // New Advanced 3D & AI Text
-    ExtrudedText3D, CinematicDepthText, MetallicTitle, GoldReflectionText, GlassMorphText, ChromeLiquidText, CrystalText, Floating3DTypography, InfiniteDepthText, ParticleExplosionText,
-    AIMorphingTypography, NeuralNetworkText, AILiquidFlowText, AIParticleTypography, AIGeneratedOrganicText, AINeuralPulseText, AIDataStreamText, AIEnergyWaveText,
-    KineticTypographyPro, DynamicWordBurst, StaggeredCharacterAnimation, ElasticTypographyMotion, MagneticTextAnimation, GravityDropText, RippleWaveText, KineticGridTypography,
-    HologramText, CyberpunkNeonText, HUDInterfaceTypography, MatrixCodeText, DigitalScanText, DataStreamTypography, GlitchMatrixTitle,
+    ExtrudedText3D, CinematicDepthText, GlassMorphText, Floating3DTypography, InfiniteDepthText, ParticleExplosionText,
+    NeuralNetworkText, AIParticleTypography, AIGeneratedOrganicText, AIDataStreamText, AIEnergyWaveText,
+    KineticTypographyPro, DynamicWordBurst, StaggeredCharacterAnimation, MagneticTextAnimation, GravityDropText, RippleWaveText, KineticGridTypography,
+    DigitalScanText, DataStreamTypography, GlitchMatrixTitle,
     
     // Cards
     CleanModernCard, FloatingCardAnimation, CardStackAnimation, LayeredCardReveal, ExpandableCardMotion, SlideCardInterface, FlipCardInteraction, ScrollCardAnimation,
@@ -19,11 +19,11 @@ import {
 
     // Maps
     BasicMapMotion, RoutePathAnimation, LocationPinDrop, LineTravelAnimation, GPSTrackingMotion, NavigationPathAnimation,
-    GlobeMap3D, SatelliteMapZoom, MapParallaxAnimation, CityNetworkAnimation, DigitalMapGridAnimation, WorldConnectionLines,
-    HologramMapInterface, AIDataMapVisualization, NetworkNodeMap, GlobalDataFlowMap, DigitalEarthAnimation,
+    GlobeMap3D, SatelliteMapZoom, MapParallaxAnimation, CityNetworkAnimation, WorldConnectionLines,
+    HologramMapInterface, AIDataMapVisualization, NetworkNodeMap, GlobalDataFlowMap,
 
     // Particles & Ultra Modern
-    LiquidMotionGraphics, MorphShapeAnimation, FluidSimulationAnimation, ParticleSystemAnimation, FractalAnimation, EnergyWaveAnimation, MagneticFieldMotion,
+    MorphShapeAnimation, ParticleSystemAnimation, FractalAnimation, EnergyWaveAnimation, MagneticFieldMotion,
     ParticleTextDisintegration, EnergyBurstAnimation, SmokeTypography, FireTypography, DustExplosionAnimation, GalaxyParticleMotion,
 
     // 3D Motion
@@ -109,7 +109,6 @@ import {
         s('kinetic-pro', 'Kinetic Typography Pro', KineticTypographyPro, 'High-end kinetic manipulation.'),
         s('word-burst', 'Dynamic Word Burst', DynamicWordBurst, 'Explosive word burst reveal.'),
         s('staggered-char', 'Staggered Char Animation', StaggeredCharacterAnimation, 'Complex staggered timing.'),
-        s('elastic-motion', 'Elastic Typography', ElasticTypographyMotion, 'Over-exaggerated elasticity.'),
         s('magnetic-text', 'Magnetic Text', MagneticTextAnimation, 'Text that magnetically attracts to cursor.'),
         s('gravity-drop', 'Gravity Drop Text', GravityDropText, 'Text falling under simulated physics.'),
         s('ripple-wave', 'Ripple Wave Text', RippleWaveText, 'Concentric ripples passing through.'),
@@ -121,14 +120,9 @@ import {
       icon: 'Box',
       effects: [
          { id: 'cinematic', name: 'Cinematic Reveal', class: CinematicReveal, description: 'High-end rotation and filter sequence.', props: baseTextProps },
-         { id: 'neon', name: 'Neon Glow', class: NeonGlow, description: 'Flickering cyberpunk neon light effect.', props: baseTextProps },
          { id: 'glitch', name: 'Digital Glitch', class: DigitalGlitch, description: 'Chromatic aberration and shifting block glitch.', props: baseTextProps },
          { id: 'scramble', name: 'Scramble', class: Scramble, description: 'Decodes text through randomized symbols before settling.', props: baseTextProps },
          { id: 'shatter', name: 'Shatter', class: Shatter, description: 'Explodes the text into shards radially.', props: baseTextProps },
-         s('hologram-text', 'Hologram Text', HologramText, 'Sci-Fi glowing scanline projection.'),
-         s('cyberpunk-neon', 'Cyberpunk Neon', CyberpunkNeonText, 'Aggressive overdriven neon.'),
-         s('hud-interface', 'HUD Interface Typography', HUDInterfaceTypography, 'Iron-man style UI text overlays.'),
-         s('matrix-code', 'Matrix Code Text', MatrixCodeText, 'Classic raining green code.'),
          s('digital-scan', 'Digital Scan Text', DigitalScanText, 'Laser scan readout.'),
          s('data-stream', 'Data Stream Typography', DataStreamTypography, 'High velocity data transit.'),
          s('glitch-matrix', 'Glitch Matrix Title', GlitchMatrixTitle, 'Combines matrix and digital corruption.')
@@ -142,11 +136,7 @@ import {
         { id: 'rotate3d', name: 'Basic Rotate 3D', class: Rotate3D, description: 'Spins elements natively in 3D space.', props: baseTextProps },
         s('extruded-3d', '3D Extruded Text', ExtrudedText3D, 'True geometrical 3D extrusion.'),
         s('cinematic-depth', 'Cinematic Depth', CinematicDepthText, 'Focal depth of field text.'),
-        s('metallic-title', 'Metallic Title', MetallicTitle, 'Shiny metal material emulation.'),
-        s('gold-reflection', 'Gold Reflection', GoldReflectionText, 'Lustrous gold environment maps.'),
         s('glass-morph', 'Glass Morph Text', GlassMorphText, 'Refractive glass letterforms.'),
-        s('chrome-liquid', 'Chrome Liquid Text', ChromeLiquidText, 'T1000 style melting chrome.'),
-        s('crystal-text', 'Crystal Text', CrystalText, 'Geometric crystal faceting.'),
         s('float-3d-typo', 'Floating 3D Typo', Floating3DTypography, 'Advanced floating physics.'),
         s('infinite-depth', 'Infinite Depth Text', InfiniteDepthText, 'Text stretching into infinity.'),
         s('particle-explode', 'Particle Explosion Text', ParticleExplosionText, 'Text blowing apart into 3D particles.')
@@ -157,12 +147,9 @@ import {
         icon: 'Cpu',
         effects: [
             { id: 'aimorph', name: 'Basic AI Morph', class: AIMorph, description: 'Generative fluid gradients masquerading as text.', props: baseTextProps },
-            s('ai-morph-pro', 'AI Morphing Typography', AIMorphingTypography, 'High-fidelity procedural morphing.'),
             s('neural-network', 'Neural Network Text', NeuralNetworkText, 'Text formed by connecting nodes.'),
-            s('ai-liquid', 'AI Liquid Flow Text', AILiquidFlowText, 'Viscous colored liquids forming words.'),
             s('ai-particle', 'AI Particle Typography', AIParticleTypography, 'Swarm intelligence forming text.'),
             s('ai-organic', 'AI Organic Text', AIGeneratedOrganicText, 'Growing, breathing organic forms.'),
-            s('ai-pulse', 'AI Neural Pulse Text', AINeuralPulseText, 'Synaptic firing animations.'),
             s('ai-data', 'AI Data Stream Text', AIDataStreamText, 'High-volume AI data rendering.'),
             s('ai-energy', 'AI Energy Wave Text', AIEnergyWaveText, 'Plasma and energy field masking.')
         ]
@@ -207,22 +194,18 @@ import {
             s('satellite', 'Satellite Map Zoom', SatelliteMapZoom, 'Deep zoom into imagery.'),
             s('map-para', 'Map Parallax', MapParallaxAnimation, 'Multi-layer topographical shift.'),
             s('city-net', 'City Network', CityNetworkAnimation, 'Linking urban centers.'),
-            s('grid-map', 'Digital Grid Map', DigitalMapGridAnimation, 'Wireframe terrain.'),
             s('world-lines', 'World Connection Lines', WorldConnectionLines, 'Arcs leaping across the Earth.'),
             s('holo-map', 'Hologram Map', HologramMapInterface, 'Sci-Fi base map projection.'),
             s('ai-map', 'AI Data Map', AIDataMapVisualization, 'Big data heatmap flux.'),
             s('node-map', 'Network Node Map', NetworkNodeMap, 'Abstract topography.'),
-            s('flow-map', 'Global Data Flow', GlobalDataFlowMap, 'Rivers of data traffic.'),
-            s('digi-earth', 'Digital Earth', DigitalEarthAnimation, 'Cyberpunk planet render.')
+            s('flow-map', 'Global Data Flow', GlobalDataFlowMap, 'Rivers of data traffic.')
         ]
     },
     {
         name: 'WebGL Particles & Energy',
         icon: 'Flame',
         effects: [
-            s('liquid-mg', 'Liquid Motion Graphics', LiquidMotionGraphics, 'Viscous 2D deformations.'),
             s('morph-shape', 'Morph Shape', MorphShapeAnimation, 'Polygon count morphing.'),
-            s('fluid-sim', 'Fluid Simulation', FluidSimulationAnimation, 'Navier-stokes physics.'),
             s('particle-sys', 'Particle System', ParticleSystemAnimation, 'Emit millions of points.'),
             s('fractal', 'Fractal Animation', FractalAnimation, 'Mathematical recursive loops.'),
             s('energy-wave', 'Energy Wave', EnergyWaveAnimation, 'Sine displaced emission.'),
