@@ -9,6 +9,7 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/socilab-animations.es.js",
       "require": "./dist/socilab-animations.umd.js"
     }
