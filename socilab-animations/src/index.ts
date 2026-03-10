@@ -25,3 +25,11 @@ export * from './text-effects/reels';
 export * from './text-effects/title';
 export * from './text-effects/ai';
 export * from './page-effects';
+
+// Massive expansion modules
+export * from './effects/text/advanced';
+export * from './effects/cards';
+export * from './effects/maps';
+export * from './effects/particles';
+export * from './effects/3d';
+export * from './effects/transitions';
