@@ -1,0 +1,30 @@
+{
+  "name": "socilab-animations",
+  "private": true,
+  "version": "1.0.0",
+  "description": "A zero-dependency generic animation library by Socilab.",
+  "type": "module",
+  "main": "./dist/socilab-animations.umd.js",
+  "module": "./dist/socilab-animations.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/socilab-animations.es.js",
+      "require": "./dist/socilab-animations.umd.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "tsc && vite build",
+    "test:playground": "cd playground && npm run dev"
+  },
+  "devDependencies": {
+    "@types/node": "^25.4.0",
+    "typescript": "~5.7.2",
+    "vite": "^6.0.5",
+    "vite-plugin-dts": "^4.5.4"
+  }
+}

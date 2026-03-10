@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Socilab Interactive Animations Demo</title>
+    <style>
+      :root {
+        --bg: #0f172a;
+        --text: #f8fafc;
+        --accent: #38bdf8;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: var(--bg);
+        color: var(--text);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        overflow-x: hidden;
+      }
+      
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+      }
+
+      .space-block {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+      }
+
+      h1 { font-size: 4rem; margin-bottom: 1rem; color: var(--accent); }
+      p { font-size: 1.5rem; color: #cbd5e1; line-height: 1.6; }
+
+      .box {
+        padding: 3rem;
+        background: rgba(255,255,255,0.05);
+        border-radius: 12px;
+        margin-top: 2rem;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      .box:hover {
+        background: rgba(255,255,255,0.1);
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+        display: flex;
+        gap: 1rem;
+        z-index: 100;
+      }
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        background: rgba(255,255,255,0.1);
+        border-radius: 4px;
+        backdrop-filter: blur(4px);
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="nav-links">
+      <a href="#" class="btn-focus">Focus Me</a>
+      <a href="#" class="btn-hover">Hover Me</a>
+    </div>
+
+    <div class="container">
+      <div class="space-block" style="height: 80vh;">
+        <h1 class="hero-title">Interactive Animations</h1>
+        <p class="hero-desc">All 24 text effects now inherently support Scroll, Hover, Click, and Focus triggers instantly thanks to the new native Interaction API.</p>
+        <p>Scroll down to see scroll-reveal text animations.</p>
+      </div>
+
+      <div class="space-block" style="border-top: 1px solid #333;">
+        <h2 class="scroll-reveal-text" style="font-size: 3rem;">I animate when scrolled into view!</h2>
+        <p>This is extremely useful for modern landing pages.</p>
+      </div>
+
+      <div class="space-block" style="border-top: 1px solid #333;">
+        <div class="box click-box">
+          <h2 class="click-text">Click to Animate</h2>
+          <p>This text scrambles or bounces only exactly when you click this box.</p>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
